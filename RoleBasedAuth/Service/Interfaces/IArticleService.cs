@@ -1,11 +1,12 @@
 using System;
+using Domain;
 
 namespace Service.Interfaces;
 
 public interface IArticleService
 {
-    void CreateArticle();
-    void DeleteArticle();
-    void UpdateArticle();
-    void GetArticleComments();
+    Article CreateArticle(Article article);
+    void DeleteArticle(uint articleId);
+    void UpdateArticle(Article article);
+    List<Comment> GetArticleComments(uint articleId);
 }

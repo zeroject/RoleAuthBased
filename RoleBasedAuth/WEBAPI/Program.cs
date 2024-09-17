@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Repo;
+using Service.Interfaces;
 using System.Text;
 using WEBAPI.Helpers;
 
@@ -59,13 +62,20 @@ builder.Services.AddAuthentication(cfg =>
         ValidateIssuerSigningKey = true,
         IssuerSigningKey = new SymmetricSecurityKey(
             Encoding.UTF8
-            .GetBytes(builder.Configuration["ApplicationSettings:JWT_Secret"])
+            .GetBytes(builder.Configuration["ApplicationSettings:JWT_Secret"] ?? string.Empty)
         ),
         ValidateIssuer = false,
         ValidateAudience = false,
         ClockSkew = TimeSpan.Zero,
     };
 });
+
+
+builder.Services.AddDbContext<DBContext>(options =>
+    options.UseInMemoryDatabase("InMemoryDb"));
+
+builder.Services.AddScoped<IArticleRepo, ArticleRepo>();
+builder.Services.AddScoped<IUserRepo, UserRepo>();
 
 var app = builder.Build();
 

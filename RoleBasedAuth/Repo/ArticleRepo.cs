@@ -1,27 +1,45 @@
-﻿using Service.Interfaces;
+﻿using Domain;
+using Service.Interfaces;
 
 namespace Repo
 {
     public class ArticleRepo : IArticleRepo
     {
-        public void CreateArticle()
+        private readonly DBContext _dbContext;
+
+        public ArticleRepo(DBContext dbContext)
         {
-            throw new NotImplementedException();
+            _dbContext = dbContext;
         }
 
-        public void DeleteArticle()
+        public Article CreateArticle(Article article)
         {
-            throw new NotImplementedException();
+            _dbContext.Article.Add(article);
+            _dbContext.SaveChanges();
+
+            return article;
         }
 
-        public void GetArticleComments()
+        public void DeleteArticle(uint articleId)
         {
-            throw new NotImplementedException();
+            var article = _dbContext.Article.Find(articleId);
+            if (article != null)
+            {
+                _dbContext.Article.Remove(article);
+            }
         }
 
-        public void UpdateArticle()
+        public List<Comment> GetArticleComments(uint articleId)
         {
-            throw new NotImplementedException();
+            List<Comment> comments = _dbContext.Comment.Where(c => c.ArticleId == articleId).ToList();
+
+            return comments;
+        }
+
+        public void UpdateArticle(Article article)
+        {
+            _dbContext.Article.Update(article);
+            _dbContext.SaveChanges();
         }
     }
 }

@@ -16,13 +16,13 @@ namespace WEBAPI.Controllers
 
         [HttpGet("createUser")]
         [Middleware.RoleCheck(Domain.Enums.Roles.Writer)]
-        public IActionResult CreateUser()
+        public ActionResult<User> CreateUser(User user)
         {
             return Ok();
         }
 
         [HttpPost]
-        public IActionResult DeleteUser() 
+        public IActionResult DeleteUser(uint userId) 
         {
             return BadRequest();
         }

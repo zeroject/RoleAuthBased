@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Domain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WEBAPI.Controllers
@@ -9,28 +10,28 @@ namespace WEBAPI.Controllers
     {
         [Authorize]
         [HttpPost("CreateArticle")]
-        public IActionResult CreateArticle()
+        public ActionResult<Article> CreateArticle(Article article)
         {
             return Ok();
         }
 
         [Authorize]
         [HttpPut]
-        public IActionResult EditArticle()
+        public ActionResult<Article> EditArticle(Article article)
         {
             return BadRequest();
         }
 
         [Authorize]
         [HttpDelete]
-        public IActionResult DeleteArticle()
+        public IActionResult DeleteArticle(uint articleId)
         {
             return BadRequest();
         }
 
         [Authorize]
         [HttpPost]
-        public IActionResult CommentOnArticle()
+        public ActionResult<List<Comment>> CommentOnArticle(uint articleId)
         {
             return NoContent();
         }

@@ -1,4 +1,4 @@
-using System;
+using Domain;
 using Domain.Enums;
 using Service.Interfaces;
 
@@ -15,21 +15,35 @@ public class UserRepo : IUserRepo
 
     public List<Roles> CheckUserRole(string username)
     {
-        throw new NotImplementedException();
+        User? user = _dbContext.User.Find(username);
+        if (user != null)
+        {
+            return user.Roles;
+        }
+        throw new Exception("User not found");
+        
     }
 
-    public void CreateUser()
+    public User CreateUser(User user)
     {
-        throw new NotImplementedException();
+        _dbContext.User.Add(user);
+        _dbContext.SaveChanges();
+
+        return user;
     }
 
-    public void DeleteUser()
+    public void DeleteUser(uint userId)
     {
-        throw new NotImplementedException();
+        User? user = _dbContext.User.Find(userId);
+        if (user != null)
+        {
+            _dbContext.User.Remove(user);
+            _dbContext.SaveChanges();
+        }
     }
 
     public void Login(string username, string password)
     {
-        throw new NotImplementedException();
+        _dbContext.User.Find(username, password);
     }
 }

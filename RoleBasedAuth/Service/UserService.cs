@@ -1,4 +1,5 @@
 using System;
+using Domain;
 using Service.Interfaces;
 
 namespace Service;
@@ -11,14 +12,14 @@ public class UserService : IUserService
         _userRepo = userRepo;
     }
 
-    public void CreateUser()
+    public User CreateUser(User user)
     {
-        _userRepo.CreateUser();
+        return _userRepo.CreateUser(user);
     }
 
-    public void DeleteUser()
+    public void DeleteUser(uint userId)
     {
-        _userRepo.DeleteUser();
+        _userRepo.DeleteUser(userId);
     }
 
     public void Login(string username, string password)

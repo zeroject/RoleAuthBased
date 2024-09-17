@@ -1,4 +1,5 @@
-﻿using Service.Interfaces;
+﻿using Domain;
+using Service.Interfaces;
 
 namespace Service
 {
@@ -11,24 +12,24 @@ namespace Service
             _articleRepo = articleRepo;
         }
 
-        public void CreateArticle()
+        public Article CreateArticle(Article article)
         {
-            _articleRepo.CreateArticle();
+            return _articleRepo.CreateArticle(article);
         }
 
-        public void DeleteArticle()
+        public void DeleteArticle(uint articleId)
         {
-            _articleRepo.DeleteArticle();
+            _articleRepo.DeleteArticle(articleId);
         }
 
-        public void GetArticleComments()
+        public List<Comment> GetArticleComments(uint articleId)
         {
-            _articleRepo.GetArticleComments();
+            return _articleRepo.GetArticleComments(articleId);
         }
 
-        public void UpdateArticle()
+        public void UpdateArticle(Article article)
         {
-            _articleRepo.UpdateArticle();
+            _articleRepo.UpdateArticle(article);
         }
     }
 }

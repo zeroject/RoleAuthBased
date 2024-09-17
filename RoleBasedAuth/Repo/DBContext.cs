@@ -11,7 +11,7 @@ public class DBContext : DbContext
     {
     }
 
-    public DbSet<Article> Blogs { get; set; }
-    public DbSet<Comment> Posts { get; set; }
-    public DbSet<Comment> User { get; set; }
+    public DbSet<Article> Article { get; set; }
+    public DbSet<Comment> Comment { get; set; }
+    public DbSet<User> User { get; set; }
 }
