@@ -54,6 +54,8 @@ builder.Services.AddScoped<IArticleRepo, ArticleRepo>();
 builder.Services.AddScoped<IUserRepo, UserRepo>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IArticleService, ArticleService>();
+builder.Services.AddScoped<ICommentRepo, CommentRepo>();
+builder.Services.AddScoped<ICommentService, CommentService>();
 builder.Services.AddTransient<AuthHelpers>();
 
 builder.Services.AddAuthentication(cfg =>

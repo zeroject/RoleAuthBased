@@ -1,6 +1,5 @@
 using Domain;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Service.Interfaces;
 
@@ -10,27 +9,27 @@ namespace WEBAPI.Controllers
     [ApiController]
     public class CommentController : ControllerBase
     {
-        private readonly ICommentService _articleService;
+        private readonly ICommentService _commentService;
 
-        public CommentController(ICommentService articleService)
+        public CommentController(ICommentService commentService)
         {
-            _articleService = articleService;
+            _commentService = commentService;
         }
 
         [Authorize]
-        [HttpPost("Comment")]
+        [HttpGet("Comment")]
         [Middleware.RoleCheck(Domain.Enums.Roles.Guest)]
         public ActionResult<List<Comment>> GetComments(uint articleId)
         {
-            return Ok(_articleService.GetArticleComments(articleId));
+            return Ok(_commentService.GetArticleComments(articleId));
         }
 
         [Authorize]
-        [HttpGet]
+        [HttpPost]
         [Middleware.RoleCheck(Domain.Enums.Roles.Subscriber)]
         public ActionResult<Comment> CreateComment(Comment comment)
         {
-            return Ok(_articleService.CreateComment(comment));
+            return Ok(_commentService.CreateComment(comment));
         }
 
         [Authorize]
@@ -38,7 +37,7 @@ namespace WEBAPI.Controllers
         [Middleware.RoleCheck(Domain.Enums.Roles.Editor)]
         public IActionResult DeleteComment(uint commentId)
         {
-            _articleService.DeleteComment(commentId);
+            _commentService.DeleteComment(commentId);
             return NoContent();
         }
 
@@ -47,7 +46,7 @@ namespace WEBAPI.Controllers
         [Middleware.RoleCheck(Domain.Enums.Roles.Editor)]
         public IActionResult UpdateComment(Comment comment)
         {
-            _articleService.UpdateComment(comment);
+            _commentService.UpdateComment(comment);
             return NoContent();
         }
     }

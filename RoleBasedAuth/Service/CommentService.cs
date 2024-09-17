@@ -6,31 +6,31 @@ namespace Service;
 
 public class CommentService : ICommentService
 {
-    private readonly ICommentRepo _articleRepo;
+    private readonly ICommentRepo _commentRepo;
 
-    public CommentService(ICommentRepo articleRepo)
+    public CommentService(ICommentRepo commentRepo)
     {
-        _articleRepo = articleRepo;
+        _commentRepo = commentRepo;
     }
 
     public List<Comment> GetArticleComments(uint articleId)
     {
-        return _articleRepo.GetArticleComments(articleId);
+        return _commentRepo.GetArticleComments(articleId);
     }
 
     public Comment CreateComment(Comment comment)
     {
-        return _articleRepo.CreateComment(comment);
+        return _commentRepo.CreateComment(comment);
     }
 
     public void DeleteComment(uint commentId)
     {
-        _articleRepo.DeleteComment(commentId);
+        _commentRepo.DeleteComment(commentId);
     }
 
     public void UpdateComment(Comment comment)
     {
-        _articleRepo.UpdateComment(comment);
+        _commentRepo.UpdateComment(comment);
     }
     
 }

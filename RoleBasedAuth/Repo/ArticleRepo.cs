@@ -31,6 +31,7 @@ namespace Repo
             if (article != null)
             {
                 _dbContext.Article.Remove(article);
+                _dbContext.SaveChanges();
             }
         }
 
