@@ -15,7 +15,7 @@ public class UserRepo : IUserRepo
 
     public List<Roles> CheckUserRole(string username)
     {
-        User? user = _dbContext.User.Find(username);
+        User? user = _dbContext.User.FirstOrDefault(u => u.Username == username);
         if (user != null)
         {
             return user.Roles;

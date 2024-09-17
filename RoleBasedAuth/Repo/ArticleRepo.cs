@@ -22,7 +22,7 @@ namespace Repo
 
         public void DeleteArticle(uint articleId)
         {
-            var article = _dbContext.Article.Find(articleId);
+            var article = _dbContext.Article.FirstOrDefault(a => a.Id == articleId);
             if (article != null)
             {
                 _dbContext.Article.Remove(article);
