@@ -22,8 +22,8 @@ public class UserService : IUserService
         _userRepo.DeleteUser(userId);
     }
 
-    public void Login(string username, string password)
+    public User Login(string username, string password)
     {
-        _userRepo.Login(username, password);
+        return _userRepo.Login(username, password);
     }
 }

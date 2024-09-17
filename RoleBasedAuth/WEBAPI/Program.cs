@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Repo;
+using Service;
 using Service.Interfaces;
 using System.Text;
 using WEBAPI.Helpers;
@@ -46,6 +47,13 @@ builder.Services.AddSwaggerGen(c =>
     // Apply the security scheme globally to all operations
     c.AddSecurityRequirement(securityRequirement);
 });
+builder.Services.AddDbContext<DBContext>(options =>
+    options.UseInMemoryDatabase("InMemoryDb"));
+
+builder.Services.AddScoped<IArticleRepo, ArticleRepo>();
+builder.Services.AddScoped<IUserRepo, UserRepo>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IArticleService, ArticleService>();
 builder.Services.AddTransient<AuthHelpers>();
 
 builder.Services.AddAuthentication(cfg =>
@@ -69,13 +77,6 @@ builder.Services.AddAuthentication(cfg =>
         ClockSkew = TimeSpan.Zero,
     };
 });
-
-
-builder.Services.AddDbContext<DBContext>(options =>
-    options.UseInMemoryDatabase("InMemoryDb"));
-
-builder.Services.AddScoped<IArticleRepo, ArticleRepo>();
-builder.Services.AddScoped<IUserRepo, UserRepo>();
 
 var app = builder.Build();
 

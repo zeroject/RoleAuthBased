@@ -42,8 +42,13 @@ public class UserRepo : IUserRepo
         }
     }
 
-    public void Login(string username, string password)
+    public User Login(string username, string password)
     {
-        _dbContext.User.Find(username, password);
+        User user = _dbContext.User.Find(username);
+        if (user != null && user.Password_Hashed == password)
+        {
+            return user;
+        }
+        throw new Exception("User not found");
     }
 }

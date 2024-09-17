@@ -1,5 +1,6 @@
 ﻿using Domain;
 using Microsoft.AspNetCore.Mvc;
+using Service.Interfaces;
 using WEBAPI.Helpers;
 
 namespace WEBAPI.Controllers
@@ -9,28 +10,32 @@ namespace WEBAPI.Controllers
     public class UserController : ControllerBase
     {
         private readonly AuthHelpers authHelpers;
-        public UserController(AuthHelpers authHelpers)
+        private readonly IUserService _userService;
+        public UserController(AuthHelpers authHelpers, IUserService userService)
         {
             this.authHelpers = authHelpers;
-        }
-
-        [HttpGet("createUser")]
-        [Middleware.RoleCheck(Domain.Enums.Roles.Writer)]
-        public ActionResult<User> CreateUser(User user)
-        {
-            return Ok();
+            _userService = userService;
         }
 
         [HttpPost]
-        public IActionResult DeleteUser(uint userId) 
+        public ActionResult<User> CreateUser(User user)
         {
-            return BadRequest();
+            return Ok(_userService.CreateUser(user));
         }
 
-        [HttpGet]
+        [HttpDelete]
+        [Middleware.RoleCheck(Domain.Enums.Roles.Editor)]
+        public IActionResult DeleteUser(uint userId) 
+        {
+            _userService.DeleteUser(userId);
+            return NoContent();
+        }
+
+        [HttpGet("Login")]
         public IActionResult Login(string Username, string Password)
         {
-            var token = authHelpers.GenerateJWTToken(new User { Id = 1, Password_Hashed = Password, Roles = new List<Domain.Enums.Roles>(), Username = Username});
+            User user = _userService.Login(Username, Password);
+            var token = authHelpers.GenerateJWTToken(user);
             return Ok(token);
         }
     }

@@ -8,6 +8,6 @@ public interface IUserRepo
 {
     User CreateUser(User user);
     void DeleteUser(uint userId);
-    void Login(string username, string password);
+    User Login(string username, string password);
     List<Roles> CheckUserRole(string username);
 }
