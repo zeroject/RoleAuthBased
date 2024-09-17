@@ -12,6 +12,11 @@ namespace Service
             _articleRepo = articleRepo;
         }
 
+        public List<Article> GetArticles()
+        {
+            return _articleRepo.GetArticles();
+        }
+
         public Article CreateArticle(Article article)
         {
             return _articleRepo.CreateArticle(article);
@@ -20,11 +25,6 @@ namespace Service
         public void DeleteArticle(uint articleId)
         {
             _articleRepo.DeleteArticle(articleId);
-        }
-
-        public List<Comment> GetArticleComments(uint articleId)
-        {
-            return _articleRepo.GetArticleComments(articleId);
         }
 
         public void UpdateArticle(Article article)

@@ -15,6 +15,12 @@ namespace WEBAPI.Controllers
             _articleService = articleService;
         }
 
+        [HttpGet]
+        public ActionResult<Article> GetArticles()
+        {
+            return Ok(_articleService.GetArticles());
+        }
+
         [Authorize]
         [HttpPost]
         [Middleware.RoleCheck(Domain.Enums.Roles.Writer)]
@@ -39,14 +45,6 @@ namespace WEBAPI.Controllers
         {
             _articleService.DeleteArticle(articleId);
             return NoContent();
-        }
-
-        [Authorize]
-        [HttpPost("Comment")]
-        [Middleware.RoleCheck(Domain.Enums.Roles.Subscriber)]
-        public ActionResult<List<Comment>> CommentOnArticle(uint articleId)
-        {
-            return Ok(_articleService.GetArticleComments(articleId));
         }
     }
 }

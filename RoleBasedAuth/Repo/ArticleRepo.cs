@@ -12,6 +12,11 @@ namespace Repo
             _dbContext = dbContext;
         }
 
+        public List<Article> GetArticles()
+        {
+            return _dbContext.Article.ToList();
+        }
+
         public Article CreateArticle(Article article)
         {
             _dbContext.Article.Add(article);
@@ -27,13 +32,6 @@ namespace Repo
             {
                 _dbContext.Article.Remove(article);
             }
-        }
-
-        public List<Comment> GetArticleComments(uint articleId)
-        {
-            List<Comment> comments = _dbContext.Comment.Where(c => c.ArticleId == articleId).ToList();
-
-            return comments;
         }
 
         public void UpdateArticle(Article article)
