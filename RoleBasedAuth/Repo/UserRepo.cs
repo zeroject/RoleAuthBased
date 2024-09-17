@@ -44,7 +44,7 @@ public class UserRepo : IUserRepo
 
     public User Login(string username, string password)
     {
-        User user = _dbContext.User.Find(username);
+        User user = _dbContext.User.FirstOrDefault(u => u.Username == username);
         if (user != null && user.Password_Hashed == password)
         {
             return user;
