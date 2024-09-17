@@ -13,7 +13,6 @@ namespace Domain
     public class UserDTO
     {
         public required uint Id { get; set; }
-        public required List<Roles> Roles { get; set; }
         public required string Username { get; set; } = string.Empty;
     }
 }

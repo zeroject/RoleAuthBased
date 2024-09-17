@@ -15,6 +15,7 @@ namespace WEBAPI.Controllers
         }
 
         [HttpGet("createUser")]
+        [Middleware.RoleCheck(Domain.Enums.Roles.Writer)]
         public IActionResult CreateUser()
         {
             return Ok();
